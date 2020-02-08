@@ -7,21 +7,9 @@ const parseHTMLElement = (element: Element) => {
   return element
     .getAttribute('name')
     ?.split('.')
-    .reduce((acu: any, field, index, path) => {
-      if (path.length > 1) {
-        if (index > 0) {
-          const newObj: any = {};
-
-          newObj[field] = path.length === index + 1 ? getValue(element) : '';
-
-          acu[path[index - 1]] = newObj;
-        } else {
-          acu[field] = {};
-        }
-      } else {
-        acu[field] = getValue(element);
-      }
-
+    .reverse()
+    .reduce((acu: any, field, index) => {
+      index === 0 ? (acu[field] = getValue(element)) : (acu = { [field]: acu });
       return acu;
     }, {});
 };

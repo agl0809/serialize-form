@@ -5,14 +5,16 @@ describe('serialize form', () => {
   const formReferences = {
     user: {
       name: 'any name',
-      email: ''
+      email: {
+        primary: ''
+      }
     },
     business: ''
   };
   const documentBody = `
     <form id="${formId}">
         <input type="text" name="user.name" value="${formReferences.user.name}">
-        <input type="text" name="user.email">
+        <input type="text" name="user.email.primary">
         <input type="text" name="business">
     </form>
     `;
@@ -21,7 +23,7 @@ describe('serialize form', () => {
     document.body.innerHTML = documentBody;
 
     const serializedForm = serializeForm(formId);
-
+    console.log(serializedForm);
     expect(serializedForm).toEqual(formReferences);
   });
 });
