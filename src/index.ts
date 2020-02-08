@@ -8,20 +8,22 @@ const parseHTMLElement = (element: Element) => {
     .getAttribute('name')
     ?.split('.')
     .reverse()
-    .reduce((acu: any, field, index) => {
-      index === 0 ? (acu[field] = getValue(element)) : (acu = { [field]: acu });
-      return acu;
+    .reduce((prev: any, current: string, index: number) => {
+      index === 0
+        ? (prev[current] = getValue(element))
+        : (prev = { [current]: prev });
+      return prev;
     }, {});
 };
 
-const parseHTMLCollection = (children: HTMLCollection | undefined): any => {
+const parseHTMLCollection = (children: HTMLCollection | undefined) => {
   return [...(children || [])].map(parseHTMLElement);
 };
 
-const serializeForm = (formId: string): any => {
+const serializeForm = (formId: string) => {
   const children = document.getElementById(formId)?.children;
-  return parseHTMLCollection(children).reduce((acu: any, elem: any) => {
-    return merge(acu, elem);
+  return parseHTMLCollection(children).reduce((prev, current) => {
+    return merge(prev, current);
   });
 };
 

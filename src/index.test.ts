@@ -22,8 +22,6 @@ describe('serialize form', () => {
   test('should return an object with references corresponding to the form id', () => {
     document.body.innerHTML = documentBody;
 
-    const serializedForm = serializeForm(formId);
-    console.log(serializedForm);
-    expect(serializedForm).toEqual(formReferences);
+    expect(serializeForm(formId)).toEqual(formReferences);
   });
 });
