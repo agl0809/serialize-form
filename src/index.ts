@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 
-const getValue = (element: Element) =>
-  element.getAttribute('value') ? element.getAttribute('value') : '';
+const getElementValue = (element: Element) =>
+  element.getAttribute('value') || '';
 
 const parseHTMLElement = (element: Element) => {
   return element
@@ -10,7 +10,7 @@ const parseHTMLElement = (element: Element) => {
     .reverse()
     .reduce((prev: any, current: string, index: number) => {
       index === 0
-        ? (prev[current] = getValue(element))
+        ? (prev[current] = getElementValue(element))
         : (prev = { [current]: prev });
       return prev;
     }, {});
